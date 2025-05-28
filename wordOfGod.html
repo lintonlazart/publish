@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Swipe Quotes</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: #f4f4f4;
+    }
+
+    img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: cover;
+    }
+
+    .quote-box {
+      padding: 30px;
+      margin: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://via.placeholder.com/600x300?text=Your+Image+Here" alt="Image" />
+
+  <div class="quote-box" id="quoteBox">
+    Loading quote...
+  </div>
+
+  <script>
+    const quotes = [
+      "The best way to predict the future is to create it.",
+      "Do what you can, with what you have, where you are.",
+      "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+      "Believe you can and you're halfway there.",
+      "The only limit to our realization of tomorrow is our doubts of today.",
+      "Happiness is not something ready made. It comes from your own actions.",
+      "In the middle of difficulty lies opportunity.",
+      "Start where you are. Use what you have. Do what you can.",
+      "The secret of getting ahead is getting started.",
+      "Dream big and dare to fail.",
+      "Hardships often prepare ordinary people for an extraordinary destiny.",
+      "The only way to do great work is to love what you do.",
+      "Success usually comes to those who are too busy to be looking for it.",
+      "Don't watch the clock; do what it does. Keep going.",
+      "Everything you’ve ever wanted is on the other side of fear.",
+      "Act as if what you do makes a difference. It does.",
+      "Don’t wait. The time will never be just right.",
+      "Make each day your masterpiece.",
+      "Your time is limited, don’t waste it living someone else’s life.",
+      "You miss 100% of the shots you don’t take."
+    ];
+
+    let current = 0;
+    const quoteBox = document.getElementById('quoteBox');
+    quoteBox.innerText = quotes[current];
+
+    let startX = 0;
+
+    document.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    });
+
+    document.addEventListener('touchend', e => {
+      let endX = e.changedTouches[0].clientX;
+      if (startX - endX > 50) {
+        current = (current + 1) % quotes.length; // swipe left
+      } else if (endX - startX > 50) {
+        current = (current - 1 + quotes.length) % quotes.length; // swipe right
+      }
+      quoteBox.innerText = quotes[current];
+    });
+  </script>
+
+</body>
+</html>
